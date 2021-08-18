@@ -74,6 +74,7 @@ int main(int argc, char **argv)
     extern QStringList ignoreGlob;
     extern bool copyCopyrightFiles;
     extern QString updateInformation;
+    extern bool nofhs;
 
     // Check arguments
     // Due to the structure of the argument parser, we have to check all arguments at first to check whether the user
@@ -173,6 +174,10 @@ int main(int argc, char **argv)
             LogDebug() << "Argument found:" << argument;
             int index = argument.indexOf("=");
             updateInformation = QString(argument.mid(index+1));
+        } else if (argument.startsWith("-nofhs")) {
+            LogDebug() << "Argument found:" << argument;
+            int index = argument.indexOf("=");
+            nofhs = true;
         } else if (argument.startsWith("--")) {
             LogError() << "Error: arguments must not start with --, only -:" << argument << "\n";
             return 1;
@@ -193,7 +198,7 @@ int main(int argc, char **argv)
         qInfo() << "         https://github.com/probonopd/linuxdeployqt/issues/340";
      } else {
         // openSUSE Leap 15.0 uses glibc 2.26 and is used on OBS
-        if (strverscmp (glcv, "2.27") >= 0) {
+        if (strverscmp (glcv, "2.35") >= 0) {
             qInfo() << "ERROR: The host system is too new.";
             qInfo() << "Please run on a system with a glibc version no newer than what comes with the oldest";
             qInfo() << "currently still-supported mainstream distribution (xenial), which is glibc 2.23.";
@@ -344,7 +349,7 @@ int main(int argc, char **argv)
 
     /* FHS-like mode is for an application that has been installed to a $PREFIX which is otherwise empty, e.g., /path/to/usr.
      * In this case, we want to construct an AppDir in /path/to. */
-    if (QDir().exists((QDir::cleanPath(appBinaryPath + "/../../bin"))) == true) {
+    if (!nofhs && QDir().exists((QDir::cleanPath(appBinaryPath + "/../../bin"))) == true) {
         fhsPrefix = QDir::cleanPath(appBinaryPath + "/../../");
         qDebug() << "FHS-like mode with PREFIX, fhsPrefix:" << fhsPrefix;
         fhsLikeMode = true;

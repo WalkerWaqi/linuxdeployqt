@@ -3,6 +3,9 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fpic")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpic")
+
 # expose version data as compiler definition
 add_definitions("-DLINUXDEPLOYQT_VERSION=\"${GIT_TAG_NAME}\"")
 add_definitions("-DLINUXDEPLOYQT_GIT_COMMIT=\"${GIT_COMMIT}\"")
@@ -26,5 +29,5 @@ mark_as_advanced(EXCLUDELIST EXCLUDELIST_RESULT)
 
 add_executable(linuxdeployqt main.cpp shared.cpp)
 target_include_directories(linuxdeployqt PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(linuxdeployqt Qt5::Core)
+target_link_libraries(linuxdeployqt ${CONAN_LIBS})
 target_compile_definitions(linuxdeployqt PRIVATE -DEXCLUDELIST="${EXCLUDELIST}")

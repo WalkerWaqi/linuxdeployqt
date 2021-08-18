@@ -64,6 +64,7 @@ QStringList excludeLibs;
 QStringList ignoreGlob;
 bool copyCopyrightFiles = true;
 QString updateInformation;
+bool nofhs = false;
 
 using std::cout;
 using std::endl;
