@@ -32,10 +32,11 @@ class Linuxdeployqt(ConanFile):
         self.copy('*.so*', dst='bin', src='lib')
     
     def configure(self):
+        self.options["qt"].shared= True
         self.options["qt"].qtsvg = True
         self.options["qt"].qtdeclarative = True
         self.options["qt"].qttools= True
         
     def requirements(self):
-        self.requires("qt/5.15.2@bincrafters/stable")
+        self.requires("qt/5.15.2")
         self.requires("openssl/1.1.1k")
