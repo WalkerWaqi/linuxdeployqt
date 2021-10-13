@@ -36,7 +36,14 @@ class Linuxdeployqt(ConanFile):
         self.options["qt"].qtsvg = True
         self.options["qt"].qtdeclarative = True
         self.options["qt"].qttools= True
-        
+        if tools.cross_building(self, skip_x64_x86=True):
+            self.options["qt"].with_icu= False
+        self.options["qt"].with_sqlite3= False
+        self.options["qt"].with_mysql= False
+        self.options["qt"].with_pq= False
+        self.options["qt"].with_odbc= False
+        self.options["qt"].with_fontconfig= False
+
     def requirements(self):
         self.requires("qt/5.15.2")
         self.requires("openssl/1.1.1k")

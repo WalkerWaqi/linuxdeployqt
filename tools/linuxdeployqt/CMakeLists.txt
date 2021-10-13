@@ -29,5 +29,6 @@ mark_as_advanced(EXCLUDELIST EXCLUDELIST_RESULT)
 
 add_executable(linuxdeployqt main.cpp shared.cpp)
 target_include_directories(linuxdeployqt PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+list(REMOVE_ITEM CONAN_LIBS Qt5Designer)
 target_link_libraries(linuxdeployqt ${CONAN_LIBS})
 target_compile_definitions(linuxdeployqt PRIVATE -DEXCLUDELIST="${EXCLUDELIST}")
