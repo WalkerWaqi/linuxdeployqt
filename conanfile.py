@@ -38,7 +38,6 @@ class Linuxdeployqt(ConanFile):
         self.options["qt"].qttools= True
         if tools.cross_building(self, skip_x64_x86=True):
             self.options["qt"].with_icu= False
-            self.options["qt"].with_fontconfig= False
         self.options["qt"].with_sqlite3= False
         self.options["qt"].with_mysql= False
         self.options["qt"].with_pq= False
