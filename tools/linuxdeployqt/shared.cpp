@@ -1204,6 +1204,7 @@ DeploymentInfo deployQtLibraries(const QString &appDirPath, const QStringList &a
    }
 
    foreach (const QString &executable, QStringList() << applicationBundle.binaryPath << additionalExecutables) {
+      runStrip(executable);
       changeIdentification("$ORIGIN/" + QFileInfo(executable).dir().relativeFilePath(libraryPath), QFileInfo(executable).canonicalFilePath());
    }
 
